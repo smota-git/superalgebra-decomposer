@@ -1,7 +1,7 @@
 
 using namespace std;
 
-const int max = 10;
+const int _max = 10;
 //const int max1 = 1000;
 const int max1 = 40;
 
@@ -18,12 +18,12 @@ class monomial
 public:
 
 	inline	monomial();
-	inline	monomial(int the_number_factor, int the_factor[max][2]);
+	inline	monomial(int the_number_factor, int the_factor[_max][2]);
 	inline	monomial(int the_number_factor, int a, int b);
 	inline	~monomial();
 
 	int number_factor;
-	int factor[max][2];
+	int factor[_max][2];
 };
 
 monomial::monomial()
@@ -33,12 +33,12 @@ monomial::monomial()
 
 }
 
-monomial::monomial(int the_number_factor, int the_factor[max][2])
+monomial::monomial(int the_number_factor, int the_factor[_max][2])
 	: number_factor(the_number_factor)
 	, factor()
 
 {
-	for (int i = 0; i < max; i++) {
+	for (int i = 0; i < _max; i++) {
 		factor[i][0] = the_factor[i][0];
 		factor[i][1] = the_factor[i][0] == 0 ? 0 : the_factor[i][1];
 	}
@@ -56,7 +56,7 @@ monomial::monomial(int the_number_factor, int a, int b)
 	factor[1][0] = b;
 	factor[1][1] = b == 0 ? 0 : 1;
 
-	for (int i = 2; i < max; i++) {
+	for (int i = 2; i < _max; i++) {
 		factor[i][0] = 0;
 		factor[i][1] = 0;
 	}

@@ -7,7 +7,7 @@
 
 using namespace std;
 
-extern const int max;
+extern const int _max;
 extern const int max1;
 
 extern const int max_parts;
@@ -54,10 +54,10 @@ int main() {
 
     printf("\n");
 
-    int puvodni_polynom[pmax][max][2];
+    int puvodni_polynom[pmax][_max][2];
 
     for (int ip = 0; ip < pmax; ip++) {
-        for (int i1 = 0; i1 < max; i1++) {
+        for (int i1 = 0; i1 < _max; i1++) {
             for (int i2 = 0; i2 < 2; i2++) {
                 puvodni_polynom[ip][i1][i2] = 0;
             }
@@ -96,9 +96,9 @@ int main() {
 
     for (int ip = 0; ip < pocet_clenu; ip++) {
 
-        int soucin[max][2];
+        int soucin[_max][2];
 
-        for (int i1 = 0; i1 < max; i1++) {
+        for (int i1 = 0; i1 < _max; i1++) {
             for (int i2 = 0; i2 < 2; i2++) {
                 soucin[i1][i2] = puvodni_polynom[ip][i1][i2];
             }
@@ -124,7 +124,7 @@ int main() {
         int test = konecny_rozklad.part[0].number_factor - neusporadany_rozklad.part[0].number_factor;
         if (test == 0) test = abs(konecny_rozklad.part[1].number_factor);
         int l = 0;
-        while ((test == 0) && (l < max)) {
+        while ((test == 0) && (l < _max)) {
             test = abs(konecny_rozklad.part[0].factor[l][0] - neusporadany_rozklad.part[0].factor[l][0]) + abs(konecny_rozklad.part[0].factor[l][1] - neusporadany_rozklad.part[0].factor[l][1]); l++;
         }
 
@@ -144,7 +144,7 @@ int main() {
             int pom = 0;
 
             for (int jp = 0; jp < pmax; jp++) {
-                for (int i1 = 0; i1 < max; i1++) {
+                for (int i1 = 0; i1 < _max; i1++) {
                     for (int i2 = 0; i2 < puvodni_polynom[jp][i1][1]; i2++) {
                         puvodni_polynom1[jp][pom + i2][0] = puvodni_polynom[jp][i1][0];
                         puvodni_polynom1[jp][pom + i2][1] = puvodni_polynom1[jp][pom + i2][0] == 0 ? 0 : 1;
@@ -178,7 +178,7 @@ int main() {
             if (koeficient[ip] == 1) { printf(" + "); std::fprintf(f, " + "); }
             if (koeficient[ip] > 1) { printf(" + %u * ", koeficient[ip]); std::fprintf(f, " + %u * ", koeficient[ip]); }
         }
-        for (int i1 = 0; i1 < max; i1++) {
+        for (int i1 = 0; i1 < _max; i1++) {
             if (puvodni_polynom[ip][i1][0] != 0) {
                 string q = unconvert(puvodni_polynom[ip][i1][0]);
                 int power = puvodni_polynom[ip][i1][1];

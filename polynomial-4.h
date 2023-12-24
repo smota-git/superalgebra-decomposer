@@ -2,7 +2,7 @@
 
 using namespace std;
 
-extern const int max;
+extern const int _max;
 extern const int max1;
 
 extern const int max_parts;
@@ -156,8 +156,8 @@ void polynomial::sorted(void)
 
 				int k = 0;
 
-				while ((((part[nn - i - j].factor[k][0] == part[nn - i].factor[k][0]) && (part[nn - i - j].factor[k][1] == part[nn - i].factor[k][1])) || ((part[nn - i - j].factor[k][0] == 0) && (part[nn - i].factor[k][0] == 0))) && (k != max)) k++;
-				if (k == max) {
+				while ((((part[nn - i - j].factor[k][0] == part[nn - i].factor[k][0]) && (part[nn - i - j].factor[k][1] == part[nn - i].factor[k][1])) || ((part[nn - i - j].factor[k][0] == 0) && (part[nn - i].factor[k][0] == 0))) && (k != _max)) k++;
+				if (k == _max) {
 					part[nn - i - j].number_factor += part[nn - i].number_factor;
 					if (part[nn - i - j].number_factor == 0) part[nn - i - j] = zero_mono;
 					part[nn - i] = zero_mono;
@@ -221,37 +221,37 @@ polynomial polynomial::transform(int a, int b)
 //polynomial polynomial::decompose(void)
 void polynomial::decompose(void)
 {
-	for (int j = 1; j < max; j++) {
-		if ((part[0].factor[max - j][0] > 0) && (part[0].factor[max - j][1] > 0)) {
-			if (part[0].factor[max - j][0] > part[0].factor[max - j - 1][0]) {
-				polynomial ordered_pair = transform(part[0].factor[max - j - 1][0], part[0].factor[max - j][0]);
+	for (int j = 1; j < _max; j++) {
+		if ((part[0].factor[_max - j][0] > 0) && (part[0].factor[_max - j][1] > 0)) {
+			if (part[0].factor[_max - j][0] > part[0].factor[_max - j - 1][0]) {
+				polynomial ordered_pair = transform(part[0].factor[_max - j - 1][0], part[0].factor[_max - j][0]);
 
 				monomial zero_mono(0, 0, 0);
 
 				int the_number_factor1 = ordered_pair.part[0].number_factor * part[0].number_factor;
 
-				int the_prefactor1[max + 2][2];
+				int the_prefactor1[_max + 2][2];
 
-				for (int ii = 0; ii < max - j - 1; ii++) {
+				for (int ii = 0; ii < _max - j - 1; ii++) {
 					the_prefactor1[ii][0] = part[0].factor[ii][0];
 					the_prefactor1[ii][1] = part[0].factor[ii][1];
 				}
 
-				the_prefactor1[max - j - 1][1] = part[0].factor[max - j - 1][1] - 1; the_prefactor1[max - j - 1][0] = (the_prefactor1[max - j - 1][1] == 0) ? 0 : part[0].factor[max - j - 1][0];
-				the_prefactor1[max - j][0] = ordered_pair.part[0].factor[0][0]; the_prefactor1[max - j][1] = 1;
-				the_prefactor1[max - j + 1][0] = ordered_pair.part[0].factor[1][0]; the_prefactor1[max - j + 1][1] = 1;
-				the_prefactor1[max - j + 2][1] = part[0].factor[max - j][1] - 1; the_prefactor1[max - j + 2][0] = (the_prefactor1[max - j + 2][1] == 0) ? 0 : part[0].factor[max - j][0];
+				the_prefactor1[_max - j - 1][1] = part[0].factor[_max - j - 1][1] - 1; the_prefactor1[_max - j - 1][0] = (the_prefactor1[_max - j - 1][1] == 0) ? 0 : part[0].factor[_max - j - 1][0];
+				the_prefactor1[_max - j][0] = ordered_pair.part[0].factor[0][0]; the_prefactor1[_max - j][1] = 1;
+				the_prefactor1[_max - j + 1][0] = ordered_pair.part[0].factor[1][0]; the_prefactor1[_max - j + 1][1] = 1;
+				the_prefactor1[_max - j + 2][1] = part[0].factor[_max - j][1] - 1; the_prefactor1[_max - j + 2][0] = (the_prefactor1[_max - j + 2][1] == 0) ? 0 : part[0].factor[_max - j][0];
 
-				for (int ii = max - j + 1; ii < max; ii++) {
+				for (int ii = _max - j + 1; ii < _max; ii++) {
 					the_prefactor1[ii + 2][0] = part[0].factor[ii][0];
 					the_prefactor1[ii + 2][1] = part[0].factor[ii][1];
 				}
 
 				int jj = 0;
-				while (jj < max + 2) {
+				while (jj < _max + 2) {
 					int jj1 = jj;
-					while ((the_prefactor1[jj1][0] == 0) || (the_prefactor1[jj1][1] == 0) || (jj1 == max + 2)) jj1++;
-					if (jj1 < max + 2) {
+					while ((the_prefactor1[jj1][0] == 0) || (the_prefactor1[jj1][1] == 0) || (jj1 == _max + 2)) jj1++;
+					if (jj1 < _max + 2) {
 						if (the_prefactor1[jj1][0] == the_prefactor1[jj - 1][0]) {
 							the_prefactor1[jj - 1][1] += the_prefactor1[jj1][1];
 							the_prefactor1[jj1][0] = 0;
@@ -274,9 +274,9 @@ void polynomial::decompose(void)
 					else jj = max1;
 				}
 
-				int the_factor1[max][2];
+				int the_factor1[_max][2];
 
-				for (int ii = 0; ii < max; ii++) {
+				for (int ii = 0; ii < _max; ii++) {
 					the_factor1[ii][0] = the_prefactor1[ii][0];
 					the_factor1[ii][1] = the_prefactor1[ii][1];
 				}
@@ -291,28 +291,28 @@ void polynomial::decompose(void)
 				else {
 					int the_number_factor2 = ordered_pair.part[1].number_factor * part[0].number_factor;
 
-					int the_prefactor2[max + 2][2];
+					int the_prefactor2[_max + 2][2];
 
-					for (int ii = 0; ii < max - j - 1; ii++) {
+					for (int ii = 0; ii < _max - j - 1; ii++) {
 						the_prefactor2[ii][0] = part[0].factor[ii][0];
 						the_prefactor2[ii][1] = part[0].factor[ii][1];
 					}
 
-					the_prefactor2[max - j - 1][1] = part[0].factor[max - j - 1][1] - 1; the_prefactor2[max - j - 1][0] = (the_prefactor2[max - j - 1][1] == 0) ? 0 : part[0].factor[max - j - 1][0];
-					the_prefactor2[max - j][0] = ordered_pair.part[1].factor[0][0]; the_prefactor2[max - j][1] = 1;
-					the_prefactor2[max - j + 1][0] = ordered_pair.part[1].factor[1][0]; the_prefactor2[max - j + 1][1] = 1;
-					the_prefactor2[max - j + 2][1] = part[0].factor[max - j][1] - 1; the_prefactor2[max - j + 2][0] = (the_prefactor2[max - j + 2][1] == 0) ? 0 : part[0].factor[max - j][0];
+					the_prefactor2[_max - j - 1][1] = part[0].factor[_max - j - 1][1] - 1; the_prefactor2[_max - j - 1][0] = (the_prefactor2[_max - j - 1][1] == 0) ? 0 : part[0].factor[_max - j - 1][0];
+					the_prefactor2[_max - j][0] = ordered_pair.part[1].factor[0][0]; the_prefactor2[_max - j][1] = 1;
+					the_prefactor2[_max - j + 1][0] = ordered_pair.part[1].factor[1][0]; the_prefactor2[_max - j + 1][1] = 1;
+					the_prefactor2[_max - j + 2][1] = part[0].factor[_max - j][1] - 1; the_prefactor2[_max - j + 2][0] = (the_prefactor2[_max - j + 2][1] == 0) ? 0 : part[0].factor[_max - j][0];
 
-					for (int ii = max - j + 1; ii < max; ii++) {
+					for (int ii = _max - j + 1; ii < _max; ii++) {
 						the_prefactor2[ii + 2][0] = part[0].factor[ii][0];
 						the_prefactor2[ii + 2][1] = part[0].factor[ii][1];
 					}
 
 					int jj = 0;
-					while (jj < max + 2) {
+					while (jj < _max + 2) {
 						int jj1 = jj;
-						while ((the_prefactor2[jj1][0] == 0) || (the_prefactor2[jj1][1] == 0) || (jj1 == max + 2)) jj1++;
-						if (jj1 < max + 2) {
+						while ((the_prefactor2[jj1][0] == 0) || (the_prefactor2[jj1][1] == 0) || (jj1 == _max + 2)) jj1++;
+						if (jj1 < _max + 2) {
 							if (the_prefactor2[jj1][0] == the_prefactor2[jj - 1][0]) {
 								the_prefactor2[jj - 1][1] += the_prefactor2[jj1][1];
 								the_prefactor2[jj1][0] = 0;
@@ -335,9 +335,9 @@ void polynomial::decompose(void)
 						else jj = max1;
 					}
 
-					int the_factor2[max][2];
+					int the_factor2[_max][2];
 
-					for (int ii = 0; ii < max; ii++) {
+					for (int ii = 0; ii < _max; ii++) {
 						the_factor2[ii][0] = the_prefactor2[ii][0];
 						the_factor2[ii][1] = the_prefactor2[ii][1];
 					}
@@ -353,28 +353,28 @@ void polynomial::decompose(void)
 					else {
 						int the_number_factor3 = ordered_pair.part[2].number_factor * part[0].number_factor;
 
-						int the_prefactor3[max + 2][2];
+						int the_prefactor3[_max + 2][2];
 
-						for (int ii = 0; ii < max - j - 1; ii++) {
+						for (int ii = 0; ii < _max - j - 1; ii++) {
 							the_prefactor3[ii][0] = part[0].factor[ii][0];
 							the_prefactor3[ii][1] = part[0].factor[ii][1];
 						}
 
-						the_prefactor3[max - j - 1][1] = part[0].factor[max - j - 1][1] - 1; the_prefactor3[max - j - 1][0] = (the_prefactor3[max - j - 1][1] == 0) ? 0 : part[0].factor[max - j - 1][0];
-						the_prefactor3[max - j][0] = ordered_pair.part[2].factor[0][0]; the_prefactor3[max - j][1] = 1;
-						the_prefactor3[max - j + 1][0] = ordered_pair.part[3].factor[1][0]; the_prefactor3[max - j + 1][1] = 1;
-						the_prefactor3[max - j + 2][1] = part[0].factor[max - j][1] - 1; the_prefactor3[max - j + 2][0] = (the_prefactor3[max - j + 2][1] == 0) ? 0 : part[0].factor[max - j][0];
+						the_prefactor3[_max - j - 1][1] = part[0].factor[_max - j - 1][1] - 1; the_prefactor3[_max - j - 1][0] = (the_prefactor3[_max - j - 1][1] == 0) ? 0 : part[0].factor[_max - j - 1][0];
+						the_prefactor3[_max - j][0] = ordered_pair.part[2].factor[0][0]; the_prefactor3[_max - j][1] = 1;
+						the_prefactor3[_max - j + 1][0] = ordered_pair.part[3].factor[1][0]; the_prefactor3[_max - j + 1][1] = 1;
+						the_prefactor3[_max - j + 2][1] = part[0].factor[_max - j][1] - 1; the_prefactor3[_max - j + 2][0] = (the_prefactor3[_max - j + 2][1] == 0) ? 0 : part[0].factor[_max - j][0];
 
-						for (int ii = max - j + 1; ii < max; ii++) {
+						for (int ii = _max - j + 1; ii < _max; ii++) {
 							the_prefactor3[ii + 2][0] = part[0].factor[ii][0];
 							the_prefactor3[ii + 2][1] = part[0].factor[ii][1];
 						}
 
 						int jj = 0;
-						while (jj < max + 2) {
+						while (jj < _max + 2) {
 							int jj1 = jj;
-							while ((the_prefactor3[jj1][0] == 0) || (the_prefactor3[jj1][1] == 0) || (jj1 == max + 2)) jj1++;
-							if (jj1 < max + 2) {
+							while ((the_prefactor3[jj1][0] == 0) || (the_prefactor3[jj1][1] == 0) || (jj1 == _max + 2)) jj1++;
+							if (jj1 < _max + 2) {
 								if (the_prefactor3[jj1][0] == the_prefactor3[jj - 1][0]) {
 									the_prefactor3[jj - 1][1] += the_prefactor3[jj1][1];
 									the_prefactor3[jj1][0] = 0;
@@ -397,9 +397,9 @@ void polynomial::decompose(void)
 							else jj = max1;
 						}
 
-						int the_factor3[max][2];
+						int the_factor3[_max][2];
 
-						for (int ii = 0; ii < max; ii++) {
+						for (int ii = 0; ii < _max; ii++) {
 							the_factor3[ii][0] = the_prefactor3[ii][0];
 							the_factor3[ii][1] = the_prefactor3[ii][1];
 						}
